@@ -90,17 +90,28 @@ MutatorsHydra.max_split_times = tonumber(tostring(DorHUD:conf('mutatorshydra_max
 if MutatorsHydra.max_split_times < 0 then MutatorsHydra.max_split_times = 1 end
 MutatorsHydra.max_split_times = math.round(MutatorsHydra.max_split_times)
 
-function MutatorsHydra:split_enemy(cop_damage)
+MutatorsHydra.civilian_killed_bonus = DorHUD:conf('mutatorshydra_civilian_killed_bonus')
+
+function MutatorsHydra:split_enemy(cop_damage, bonus)
 	local parent_unit = cop_damage._unit
 	if not parent_unit:base() then
 		return
+	end
+	if not self.civilian_killed_bonus then
+		bonus = false
+	end
+	if bonus then
+		parent_unit:base()._Hydra = -9
 	end
 	if parent_unit:base()._Hydra and parent_unit:base()._Hydra >= self.max_split_times then
 		return
 	end
 	parent_unit:base()._Hydra = parent_unit:base()._Hydra or 0
-	local spawn_selector_k = self._hash_enemy_list[parent_unit:name():key()]
-	local spawn_selector = self.raw_enemy_list[spawn_selector_k]
+	local spawn_selector_k = tostring(self._hash_enemy_list[parent_unit:name():key()])
+	local spawn_selector = self.raw_enemy_list[tostring(spawn_selector_k)]
+	if bonus then
+		spawn_selector = {units = {"units/characters/enemies/tank/tank"}}
+	end
 	if spawn_selector and spawn_selector.units then
 		math.randomseed(os.time())
 		local spawn_selector_unit = spawn_selector.units[math.random(#spawn_selector.units)]
