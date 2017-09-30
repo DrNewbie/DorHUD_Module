@@ -2,10 +2,11 @@ local function _modify_v_delay(v)
 	v = v or 0
 	return 0.01 + v / 3
 end
-local function _modify_v_more(v, v_fix)
+local function _modify_v_more(v, v_fix, v_rat)
 	v = v or 0
 	v_fix = v_fix or 0
-	return 1 + v * 8 + v_fix
+	v_rat = v_rat or 6
+	return 1 + v * v_rat + v_fix
 end
 local function _modify_v_little_more(v)
 	v = v or 0
@@ -20,19 +21,19 @@ for k, v in pairs(tweak_data.group_ai.besiege.assault.delay) do
 	tweak_data.group_ai.besiege.assault.delay[k] = _modify_v_delay(v)
 end
 for k, v in pairs(tweak_data.group_ai.besiege.assault.sustain_duration_min) do
-	tweak_data.group_ai.besiege.assault.sustain_duration_min[k] = _modify_v_more(v, -10)
+	tweak_data.group_ai.besiege.assault.sustain_duration_min[k] = _modify_v_more(v, -10, 3)
 end
 for k, v in pairs(tweak_data.group_ai.besiege.assault.sustain_duration_max) do
-	tweak_data.group_ai.besiege.assault.sustain_duration_max[k] = _modify_v_more(v)
+	tweak_data.group_ai.besiege.assault.sustain_duration_max[k] = _modify_v_more(v, nil, 3)
 end
 for k, v in pairs(tweak_data.group_ai.street.assault.delay) do
 	tweak_data.group_ai.street.assault.delay[k] = _modify_v_delay(v)
 end
 for k, v in pairs(tweak_data.group_ai.street.assault.sustain_duration_min) do
-	tweak_data.group_ai.street.assault.sustain_duration_min[k] = _modify_v_more(v, -10)
+	tweak_data.group_ai.street.assault.sustain_duration_min[k] = _modify_v_more(v, -10, 3)
 end
 for k, v in pairs(tweak_data.group_ai.street.assault.sustain_duration_max) do
-	tweak_data.group_ai.street.assault.sustain_duration_max[k] = _modify_v_more(v)
+	tweak_data.group_ai.street.assault.sustain_duration_max[k] = _modify_v_more(v, nil, 3)
 end
 for k, v in pairs(tweak_data.group_ai.besiege.recon.group_size) do
 	tweak_data.group_ai.besiege.recon.group_size[k] = math.round(_modify_v_more(v))
