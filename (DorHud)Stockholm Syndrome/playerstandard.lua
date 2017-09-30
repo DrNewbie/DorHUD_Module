@@ -7,7 +7,7 @@ function PlayerStandard:_check_action_primary_attack(t, input)
 	local _res = _check_action_primary_attack(self, t, input)
 	if self._shooting and t > _StockholmSyndrome._delay then
 		math.randomseed(tostring(os.time()):reverse():sub(1, 6))
-		_StockholmSyndrome._delay = t + math.random()*10
+		_StockholmSyndrome._delay = t + math.random()*3
 		if math.random(1, 3) >= 2 then
 			local _local_pos = self._unit:position()
 			for u_key, u_data in pairs(managers.enemy:all_civilians()) do
