@@ -32,3 +32,8 @@ function GroupAIStateBase:_try_use_task_spawn_event(t, target_area, task_type, t
 		end
 	end
 end
+
+function GroupAIStateBase:set_difficulty()
+	self._difficulty_value = 1
+	self:_calculate_difficulty_ratio()
+end
