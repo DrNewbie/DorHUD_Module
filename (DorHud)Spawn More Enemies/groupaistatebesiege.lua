@@ -5,7 +5,7 @@ end
 local function _modify_v_more(v, v_fix, v_rat)
 	v = v or 0
 	v_fix = v_fix or 0
-	v_rat = v_rat or 6
+	v_rat = v_rat or 4
 	return 1 + v * v_rat + v_fix
 end
 local function _modify_v_little_more(v)
@@ -75,14 +75,13 @@ for group_name, group_data in pairs(tweak_data.group_ai.street.blockade.units) d
 		end
 	end
 end
-for k, v in pairs(tweak_data.group_ai.unit_categories) do
-	if v.units then
-		v.max_amount = v.max_amount or 0
-		if v.max_amount > 0 then
-			tweak_data.group_ai.unit_categories[k].max_amount = math.round(_modify_v_more(v.max_amount))
-		end
-	end
-end
+
+tweak_data.group_ai.unit_categories.tank.max_amount = 6
+tweak_data.group_ai.unit_categories.shield.max_amount = 8
+tweak_data.group_ai.unit_categories.spooc.max_amount = 8
+tweak_data.group_ai.unit_categories.taser.max_amount = 6
+tweak_data.group_ai.unit_categories.sniper.max_amount = 12
+
 tweak_data.group_ai.besiege.assault.build_duration = tweak_data.group_ai.besiege.assault.build_duration * 0.65
 tweak_data.group_ai.street.assault.build_duration = tweak_data.group_ai.street.assault.build_duration * 0.65
 tweak_data.drama.assault_fade_end = tweak_data.drama.assault_fade_end * 0.65
