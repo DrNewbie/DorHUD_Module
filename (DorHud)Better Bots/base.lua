@@ -1,6 +1,6 @@
 local module = DorHUDMod:new("Better Bots", { abbr = "BetterBots",
-	author = "Schmuddel", bundled = true, description = {
-		english = "http://modwork.shop/19324"
+	author = " ", bundled = true, description = {
+		english = "Boom"
 	}
 })
 module:hook_post_require("lib/managers/criminalsmanager", "criminalsmanager")
