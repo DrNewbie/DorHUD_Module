@@ -11,6 +11,11 @@ function ElementSpawnEnemyDummy:produce(params, _, no_sme)
 		return units_spawned
 	end
 	if not no_sme then
+		local get_unit = self._units[#self._units]
+		local _unit_objective = nil
+		if get_unit then
+			unit_objective = get_unit:brain() and get_unit:brain():objective() or nil
+		end
 		for i = 1, 3 do
 			local enemy_name = Idstring("units/characters/enemies/spooc/spooc")
 			if self._enemy_name then
@@ -28,7 +33,9 @@ function ElementSpawnEnemyDummy:produce(params, _, no_sme)
 			local unit_done = safe_spawn_unit(enemy_name, pos + offset, rot)
 			unit_done:base():add_destroy_listener(self._unit_destroy_clbk_key, callback(self, self, "clbk_unit_destroyed"))
 			managers.groupai:state():assign_enemy_to_group_ai(unit_done)
-			table.insert(units_spawned, unit_done)
+			if unit_objective then
+				unit_done:brain():set_objective(unit_objective)
+			end
 		end
 	end
 	return units_spawned
