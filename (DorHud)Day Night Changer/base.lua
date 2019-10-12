@@ -4,7 +4,6 @@ local module = DorHUDMod:new("Day Night Changer", { abbr = "DayNightChanger",
 	}
 })
 module:hook_post_require("core/lib/utils/dev/editor/coreworlddefinition", "lua/core.coreworlddefinition.lua")
-module:hook_post_require("lib/managers/missionmanager", "lua/missionmanager.lua")
 module:register_include("menu/modlocalization", { type = "localization" })
 module:register_include("menu/modoptions", { type = "menu_options", lazy_load = true })
 
