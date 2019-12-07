@@ -1,4 +1,4 @@
-local module = DorHUDMod:new("Day Night Changer", { abbr = "DayNightChanger",
+local module = DorHUDMod:new("day_night_changer", { abbr = "DayNightChanger",
 	author = "Dr_Newbie", bundled = true, description = {
 		english = "http://modwork.shop/25740"
 	}

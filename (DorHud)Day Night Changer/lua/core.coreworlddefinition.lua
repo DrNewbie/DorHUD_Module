@@ -19,17 +19,22 @@ function WorldDefinition:_create_environment(...)
 		local menu_id = "M_"..Idstring("day_night_chager_for_heist_"..Global.game_settings.level_id):key()
 		if DorHUD:conf(menu_id) then
 			local environment_name
-			if DorHUD:conf(menu_id) == "Day" then
+			local _type = tostring(DorHUD:conf(menu_id))
+			if _type == "Random" then
+				local _poss = {"Default", "Day", "Night_Diamnod", "Night_L4D"}
+				_type = _poss[math.random(#_poss)]
+			end
+			if _type == "Day" then
 				if not PackageManager:loaded("levels/suburbia/world") then
 					PackageManager:load("levels/suburbia/world")
 				end
 				environment_name = "environments/env_suburbia/env_suburbia"
-			elseif DorHUD:conf(menu_id) == "Night_L4D" then
+			elseif _type == "Night_L4D" then
 				if not PackageManager:loaded("levels/l4d/world") then
 					PackageManager:load("levels/l4d/world")
 				end
 				environment_name = "environments/env_l4d/env_l4d"
-			elseif DorHUD:conf(menu_id) == "Night_Diamnod" then
+			elseif _type == "Night_Diamnod" then
 				if not PackageManager:loaded("levels/diamondheist/world") then
 					PackageManager:load("levels/diamondheist/world")
 				end

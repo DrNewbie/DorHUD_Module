@@ -1,4 +1,4 @@
-local module = ... or DorHUD:module('DayNightChanger')
+local module = ... or DorHUD:module('day_night_changer')
 
 for lv_id, name_id in pairs(
 		{
@@ -18,6 +18,7 @@ for lv_id, name_id in pairs(
 		text_id = name_id,
 		choices = {
 			{"Default", "daynight_loc_on_default"},
+			{"Random", "daynight_loc_on_night_random"},
 			{"Day", "daynight_loc_on_day"},
 			{"Night_Diamnod", "daynight_loc_on_night_diamnod"},
 			{"Night_L4D", "daynight_loc_on_night_hospital"}
