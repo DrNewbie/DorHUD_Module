@@ -2,7 +2,7 @@ local module = DMod:new("pd2_grinder_deck", {
 	abbr = "pdgrinderdeck",
 	author = "Dr_Newbie",
 	description = "http://modwork.shop/26072",
-	version = "1"
+	version = "2"
 })
 
 module:hook_post_require("lib/units/beings/player/playerdamage", "playerdamage")

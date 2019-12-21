@@ -1,35 +1,6 @@
 local module = ... or D:module('pd2_grinder_deck')
 local PlayerDamage = module:hook_class("PlayerDamage")
 
-function PlayerDamage:get_real_health()
-	return self._health
-end
-
-function PlayerDamage:_check_update_max_health()
-	local max_health = self:_max_health()
-	self._current_max_health = self._current_max_health or self:_max_health()
-	if self._current_max_health ~= max_health then
-		local ratio = max_health / self._current_max_health
-		local health = math.clamp(self:get_real_health() * ratio, 0, max_health)
-		self._health = health
-		self._current_max_health = max_health
-	end
-end
-
-function PlayerDamage:change_health(change_of_health)
-	self:_check_update_max_health()
-	return self:set_health(self:get_real_health() + change_of_health)
-end
-
-function PlayerDamage:restore_health(health_restored, is_static)
-	if is_static then
-		return self:change_health(health_restored * self._healing_reduction)
-	else
-		local max_health = self:_max_health()
-		return self:change_health(max_health * health_restored * self._healing_reduction)
-	end
-end
-
 function PlayerDamage:_upd_health_regen(t, dt)
 	if #self._damage_to_hot_stack > 0 then
 		repeat
@@ -37,7 +8,12 @@ function PlayerDamage:_upd_health_regen(t, dt)
 			local done = not next_doh or TimerManager:game():time() < next_doh.next_tick
 			if not done then
 				local regen_rate = (tweak_data.upgrades.values.player.damage_to_hot or 0)
-				self:restore_health(regen_rate, true)
+				self._health = self._health + regen_rate * self._healing_reduction
+				self:_send_set_health()
+				managers.hud:set_player_health({
+					current = self._health,
+					total = self:_max_health()
+				})				
 				next_doh.ticks_left = next_doh.ticks_left - 1
 				if next_doh.ticks_left == 0 then
 					table.remove(self._damage_to_hot_stack, 1)
