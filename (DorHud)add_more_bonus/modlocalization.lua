@@ -7,9 +7,13 @@ module:add_localization_string("debug_add_more_bonus_name_id", {
 module:add_localization_string("debug_add_more_bonus_help_id", {
 	english = table.concat({
 		"[Combat Doctor]",
-		"You gain 1 addition Doctor Bags.\n",
+		"You gain 1 addition Doctor Bag.\n",
 		"[Extra Lead]",
-		"You gain 1 addition Ammo Bags.\n"
+		"You gain 1 addition Ammo Bag.\n",
+		"[Engineer]",
+		"You gain 3 addition Sentry Guns.\n",
+		"[Boomer]",
+		"You gain 7 addition Trip Mines.\n"
 	}, "\n")
 })
 
@@ -22,7 +26,7 @@ module:add_localization_string("debug_add_more_bonus_medic_2x", {
 })
 
 module:add_localization_string("debug_add_more_bonus_medic_2x_desc", {
-	english = "You gain 1 addition Doctor Bags."
+	english = "You gain 1 addition Doctor Bag."
 })
 
 module:add_localization_string("debug_add_more_bonus_ammo_2x", {
@@ -30,5 +34,21 @@ module:add_localization_string("debug_add_more_bonus_ammo_2x", {
 })
 
 module:add_localization_string("debug_add_more_bonus_ammo_2x_desc", {
-	english = "You gain 1 addition Ammo Bags."
+	english = "You gain 1 addition Ammo Bag."
+})
+
+module:add_localization_string("debug_add_more_bonus_engineer", {
+	english = "Engineer"
+})
+
+module:add_localization_string("debug_add_more_bonus_engineer_desc", {
+	english = "You gain 3 addition Sentry Guns."
+})
+
+module:add_localization_string("debug_add_more_bonus_boomer", {
+	english = "Boomer"
+})
+
+module:add_localization_string("debug_add_more_bonus_boomer_desc", {
+	english = "You gain 7 addition Trip Mines."
 })
