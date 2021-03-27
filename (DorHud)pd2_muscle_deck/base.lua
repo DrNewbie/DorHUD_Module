@@ -2,7 +2,7 @@ local module = DMod:new("pd2_muscle_deck", {
 	abbr = "pdmuscledeck",
 	author = "Dr_Newbie",
 	description = "https://modworkshop.net/mod/27990",
-	version = "2"
+	version = "3"
 })
 
 module:hook_post_require("lib/units/beings/player/playerdamage", "playerdamage")
