@@ -6,7 +6,7 @@ function PlayerStandard:__muscle_panic_suppression(t)
 		self.__muscle_panic_suppression_dt = t + 5 + math.random() * 20
 		local _local_pos = self._unit:position()
 		for u_key, u_data in pairs(managers.enemy:all_enemies()) do
-			if u_data.unit and alive(u_data.unit) and u_data.unit:brain() and u_data.unit:brain().on_intimidated and mvector3.distance(u_data.unit:position(), _local_pos) <= tweak_data.upgrades.values.player.__pd2_muscle_panic_suppression_dis then
+			if u_data.unit and alive(u_data.unit) and u_data.unit:brain() and u_data.unit:brain()._logics.intimidated and u_data.unit:brain().on_intimidated and mvector3.distance(u_data.unit:position(), _local_pos) <= tweak_data.upgrades.values.player.__pd2_muscle_panic_suppression_dis then
 				u_data.unit:brain():set_logic("intimidated", {effect = 1})
 			end
 		end
