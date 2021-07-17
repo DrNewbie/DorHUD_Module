@@ -13,23 +13,27 @@ module:post_hook(PlayerDamage, "init", function(self)
 	end
 end, true)
 
-local old_max_armor = PlayerDamage._max_armor
+local old_max_armor = "F_"..Idstring("PlayerDamage:_max_armor:pd2_armorer_deck"):key()
+
+PlayerDamage[old_max_armor] = PlayerDamage[old_max_armor] or PlayerDamage._max_armor
 
 function PlayerDamage:_max_armor(...)
 	if self._armorer_deck_bool then
-		return old_max_armor(self, ...) + (self._armorer_deck_addon_armor or 0)
+		return self[old_max_armor](self, ...) + (self._armorer_deck_addon_armor or 0)
 	else
-		return old_max_armor(self, ...)
+		return self[old_max_armor](self, ...)
 	end
 end
 
-local old_chk_dmg_too_soon = PlayerDamage._chk_dmg_too_soon
+local old_chk_dmg_too_soon = "F_"..Idstring("PlayerDamage:_chk_dmg_too_soon:pd2_armorer_deck"):key()
+
+PlayerDamage[old_chk_dmg_too_soon] = PlayerDamage[old_chk_dmg_too_soon] or PlayerDamage._chk_dmg_too_soon
 
 function PlayerDamage:_chk_dmg_too_soon(...)
 	if self._armorer_deck_bool and self._armorer_deck_inmune_run == 1 and self._armorer_deck_inmune_run_dt then
 		return true
 	end
-	return old_chk_dmg_too_soon(self, ...)
+	return self[old_chk_dmg_too_soon](self, ...)
 end
 
 function PlayerDamage:_update_armorer_break_event(t, dt)
