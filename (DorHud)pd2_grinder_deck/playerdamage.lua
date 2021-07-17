@@ -8,12 +8,14 @@ function PlayerDamage:_upd_health_regen(t, dt)
 			local done = not next_doh or TimerManager:game():time() < next_doh.next_tick
 			if not done then
 				local regen_rate = (tweak_data.upgrades.values.player.damage_to_hot or 0)
+				--[[
 				self._health = self._health + regen_rate * self._healing_reduction
 				self:_send_set_health()
 				managers.hud:set_player_health({
 					current = self._health,
 					total = self:_max_health()
-				})				
+				})]]
+				self:set_health(self._health + regen_rate * self._healing_reduction)
 				next_doh.ticks_left = next_doh.ticks_left - 1
 				if next_doh.ticks_left == 0 then
 					table.remove(self._damage_to_hot_stack, 1)
@@ -60,8 +62,10 @@ module:post_hook(PlayerDamage, "_check_bleed_out", function(self)
 	end
 end, true)
 
-local old_max_health = PlayerDamage._max_health
+local old_max_health = "F_"..Idstring("PlayerDamage:_max_health:pd2_grinder_deck"):key()
+
+PlayerDamage[old_max_health] = PlayerDamage[old_max_health] or PlayerDamage._max_health
 
 function PlayerDamage:_max_health(...)
-	return old_max_health(self, ...) * 1.4
+	return self[old_max_health](self, ...) * (tweak_data.upgrades.values.player.pd2_grinder_deck_max_hp_bonus or 1)
 end

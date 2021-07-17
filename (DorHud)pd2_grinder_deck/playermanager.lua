@@ -17,7 +17,6 @@ function PlayerManager:_check_damage_to_hot(unit)
 	if self._next_allowed_doh_t and t < self._next_allowed_doh_t then
 		return
 	end
-	local add_stack_sources = data.add_stack_sources or {}
 	player_unit:character_damage():add_damage_to_hot()
 	self._next_allowed_doh_t = t + data.stacking_cooldown
 end
