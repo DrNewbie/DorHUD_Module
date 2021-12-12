@@ -2,7 +2,7 @@ local module = DMod:new("test_place", {
 	abbr = "testmap",
 	author = "Dr_Newbie",
 	description = "https://modworkshop.net/mod/35454",
-	version = "1"
+	version = "2"
 })
 
 --[[Localization]]
@@ -22,8 +22,8 @@ module:hook_post_require("lib/managers/mission/elementdialogue", "block_event/el
 module:hook_post_require("lib/managers/mission/missionscriptelement", "block_event/missionscriptelement")
 
 --[[Mod Event]]
---module:hook_post_require("lib/managers/mission/missionscriptelement", "mod_event/missionscriptelement")
-module:hook_post_require("lib/managers/missionmanager", "mod_event/missionmanager")
+module:hook_post_require("lib/managers/mission/missionscriptelement", "mod_event/missionscriptelement")
+--module:hook_post_require("lib/managers/missionmanager", "mod_event/missionmanager")
 
 --[[Add 'TEST']]
 module:hook_post_require("lib/managers/menu/menunodegui", "menunodegui")
