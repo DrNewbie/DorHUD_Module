@@ -10,6 +10,8 @@ __test_place.__var = __test_place.__var or {}
 __test_place.__var.__delay_block_missionscriptelement = __test_place.__var.__delay_block_missionscriptelement or Application:time() + 10
 __test_place.__var.__delay_block_missionscriptelement_bool = __test_place.__var.__delay_block_missionscriptelement_bool or false
 __test_place.__var.__id_100095_bool = __test_place.__var.__id_100095_bool or false
+__test_place.__var.__temp_weapon_unit = __test_place.__var.__temp_weapon_unit or nil
+__test_place.__var.__temp_weapon_idx = __test_place.__var.__temp_weapon_idx or 1
 
 local function spawn_people(__unit_name, __base_pos, __fix_pos)
 	local __target = safe_spawn_unit(Idstring(__unit_name), __base_pos + __fix_pos, Rotation(180, 0, 0)) or nil
@@ -61,6 +63,7 @@ local function spawn_text(__base_pos, __base_rot, __text_data)
 end
 
 local function spawn_button(__base_pos, __base_rot, __text, func)
+	safe_spawn_unit_without_extensions(Idstring("units/world/props/apartment/apartment_hallway_lamp/apartment_hallway_lamp"), __base_pos, __base_rot)
 	local __unit_name_ids = Idstring("units/world/props/apartment/apartment_key_dummy/apartment_key_dummy")
 	local __button_unit = safe_spawn_unit(__unit_name_ids, __base_pos, __base_rot)
 	if __button_unit and __button_unit.interaction and __button_unit:interaction() then
@@ -79,6 +82,21 @@ local function spawn_button(__base_pos, __base_rot, __text, func)
 			func()		
 		end
 	end
+	return
+end
+
+local function spawn_weapon(__unit_name_ids, __base_pos, __base_rot)
+	local __wep_unit = safe_spawn_unit(__unit_name_ids, __base_pos, __base_rot)
+	if __wep_unit then
+		local setup_data = {}
+		setup_data.user_unit = managers.player:player_unit()
+		setup_data.ignore_units = {
+			managers.player:player_unit(),
+			__wep_unit
+		}
+		__wep_unit:base():setup(setup_data)
+	end
+	return __wep_unit
 end
 
 module:pre_hook(MissionScriptElement, "on_executed", function(self)
@@ -119,15 +137,32 @@ module:pre_hook(MissionScriptElement, "on_executed", function(self)
 					spawn_people(__unit_name, Vector3(-520, 1200, 1677), Vector3(-75, 0, 0) * __id)
 				end				
 			end)
-			safe_spawn_unit_without_extensions(Idstring("units/world/props/apartment/apartment_hallway_lamp/apartment_hallway_lamp"), Vector3(-905, 250, 1780), Rotation(0, 180, 0))
 			--[[Button to Spawn Ammo and Medic Bag]]
-			spawn_text(Vector3(-770, 300, 1785), Rotation(0, 0, 0), {text = "Bags"})
-			spawn_text(Vector3(-770, 210, 1760), Rotation(0, 90, 0), {text = "Bags"})
-			spawn_button(Vector3(-730, 250, 1780), Rotation(0, 0, 0), "Give Ammo and Medic Bag", function()
+			spawn_text(Vector3(-765, 300, 1785), Rotation(0, 0, 0), {text = "Bags"})
+			spawn_text(Vector3(-765, 210, 1760), Rotation(0, 90, 0), {text = "Bags"})
+			spawn_button(Vector3(-730, 250, 1780), Rotation(0, 180, 0), "Give Ammo and Medic Bag", function()
 				DoctorBagBase.spawn(Vector3(-700, 400, 1780), Rotation())
 				AmmoBagBase.spawn(Vector3(-800, 400, 1780), Rotation())
 			end)
-			safe_spawn_unit_without_extensions(Idstring("units/world/props/apartment/apartment_hallway_lamp/apartment_hallway_lamp"), Vector3(-730, 250, 1780), Rotation(0, 180, 0))
+			
+			spawn_text(Vector3(-595, 300, 1785), Rotation(0, 0, 0), {text = "Guns"})
+			spawn_text(Vector3(-595, 210, 1760), Rotation(0, 90, 0), {text = "Guns"})
+			spawn_button(Vector3(-560, 250, 1780), Rotation(0, 180, 0), "Spawn Gun", function()
+				if __test_place.__var.__temp_weapon_unit then
+					if alive(__test_place.__var.__temp_weapon_unit) then
+						World:delete_unit(__test_place.__var.__temp_weapon_unit)
+					end
+					if alive(__test_place.__var.__temp_weapon_unit) then
+						__test_place.__var.__temp_weapon_unit:set_slot(0)
+					end
+					__test_place.__var.__temp_weapon_unit = nil
+				end
+				__test_place.__var.__temp_weapon_unit = spawn_weapon(PlayerInventory._index_to_weapon_list[__test_place.__var.__temp_weapon_idx], Vector3(-560, 250, 1830), Rotation(90, 0, 0))
+				__test_place.__var.__temp_weapon_idx = __test_place.__var.__temp_weapon_idx + 1
+				if __test_place.__var.__temp_weapon_idx > #(PlayerInventory._index_to_weapon_list) then
+					__test_place.__var.__temp_weapon_idx = 1
+				end
+			end)
 		end
 	end
 end, true)

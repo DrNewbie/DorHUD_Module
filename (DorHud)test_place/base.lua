@@ -2,7 +2,7 @@ local module = DMod:new("test_place", {
 	abbr = "testmap",
 	author = "Dr_Newbie",
 	description = "https://modworkshop.net/mod/35454",
-	version = "3"
+	version = "4"
 })
 
 --[[Localization]]
