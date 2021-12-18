@@ -135,7 +135,7 @@ module:pre_hook(MissionScriptElement, "on_executed", function(self)
 				}
 				for __id, __unit_name in pairs(__spawn_list) do
 					spawn_people(__unit_name, Vector3(-520, 1200, 1677), Vector3(-75, 0, 0) * __id)
-				end				
+				end
 			end)
 			--[[Button to Spawn Ammo and Medic Bag]]
 			spawn_text(Vector3(-765, 300, 1785), Rotation(0, 0, 0), {text = "Bags"})
