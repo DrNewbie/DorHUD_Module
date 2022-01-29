@@ -111,7 +111,7 @@ module:pre_hook(MissionScriptElement, "on_executed", function(self)
 			--[[Button to Spawn Enemies]]
 			spawn_text(Vector3(-960, 300, 1785), Rotation(0, 0, 0), {text = "Enemies"})
 			spawn_text(Vector3(-960, 210, 1760), Rotation(0, 90, 0), {text = "Enemies"})
-			spawn_button(Vector3(-900, 250, 1780), Rotation(0, 0, 0), "Spawn Enemies", function()
+			spawn_button(Vector3(-900, 250, 1780), Rotation(0, 180, 0), "Spawn Enemies", function()
 				local __base_pos = Vector3(-520, 1200, 1677)
 				local __spawn_list = {
 					"units/characters/enemies/swat/swat",
