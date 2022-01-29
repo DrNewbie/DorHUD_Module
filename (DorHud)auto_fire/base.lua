@@ -5,7 +5,6 @@ local module = DMod:new("auto_fire", {
 	version = "1"
 })
 
---[[Block Event]]
 module:hook_post_require("lib/units/beings/player/states/playerstandard", "playerstandard")
 
 return module
