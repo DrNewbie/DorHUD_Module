@@ -40,9 +40,3 @@ function PlayerTased:_update_check_actions(__t, ...)
 	end
 	return old_func1(self, __t, ...)
 end
-
---[[
-function GroupAIStateBase:on_tase_start(cop_key, criminal_key)
-	self._criminals[criminal_key].being_tased = cop_key
-end
-]]
